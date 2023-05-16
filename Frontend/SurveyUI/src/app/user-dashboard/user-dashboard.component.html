@@ -1,0 +1,104 @@
+<br><br><br>
+<div class="container-fluid">
+  <div class="text-center">
+    <!-- Add User Button -->
+    <button class="btn btn-success" (click)="clickAddUser()" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-user-plus"></i></button>
+  </div>
+</div>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Email ID</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Password</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of userDetails">
+      <td>{{row.id}}</td>
+      <td>{{row.name}}</td>
+      <td>{{row.email}}</td>
+      <td>{{row.mobile}}</td>
+      <td>{{row.password}}</td>
+      <td>
+        <!-- View Button -->
+        <button class="btn btn-info m-1"><i class="fa-solid fa-user-pen" (click)="onEdit(row)" title="Edit" data-toggle="modal" data-target="#exampleModal"></i></button>
+
+
+        <!-- Delete Button -->
+        <button class="btn btn-danger m-1"><i class="fa-solid fa-trash"  (click)="deleteUser(row)" ></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue" (ngSubmit)="onSubmit()">
+
+          <div class="mb-3" *ngIf="editMode">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            <input type="text" value="{{currentUserId}}"  class="form-control" [disabled]="true" aria-describedby="emailHelp">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" formControlName="name" class="form-control" aria-describedby="emailHelp" required>
+            <span *ngIf="!name.valid && (name.touched || userSubmitted) || formValue.hasError('whitespace')"
+            class="error-block">
+              Please provide name
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Email ID</label>
+            <input type="email" formControlName="email" class="form-control" required>
+            <span *ngIf="!email.valid && (email.touched || userSubmitted) || formValue.hasError('whitespace')" class="error-block">
+              <span *ngIf="email.hasError('required')">
+               Please provide Email id
+              </span>
+              <span *ngIf="email.hasError('email') ">
+               Please provide Valid Email id
+              </span>
+             </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Mobile No</label>
+            <input type="text" formControlName="mobile" class="form-control" required >
+            <span *ngIf="!mobile.valid && (mobile.touched || userSubmitted) || formValue.hasError('whitespace') "
+            class="error-block">
+              Please provide Mobile number
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="text" formControlName="password" class="form-control" required >
+            <span *ngIf="!password.valid && (password.touched || userSubmitted) || formValue.hasError('whitespace')"
+            class="error-block">
+              Please provide password
+            </span>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" (click)="onReset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" *ngIf="showAdd" class="btn btn-primary">Add</button>
+            <button type="button" *ngIf="showUpdate" (click)="updateUsers()" class="btn btn-primary">Update</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

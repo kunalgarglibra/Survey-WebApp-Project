@@ -1,0 +1,138 @@
+
+ <br><br>
+
+
+
+<div class="container-fluid">
+  <div class="text-center m-3">
+    <button class="btn btn-success" (click)="clickAddQuestion()" data-toggle="modal" data-target="#exampleModal" >Add Question</button>
+  </div>
+  <div class="text-center m-3" *ngIf="surveyEmpty">
+   <h3 class="text-center"><i>No questions in this survey click Add Questions to add new questions.</i></h3>
+  </div>
+</div>
+
+ <div class="col-md-6 offset-md-3 mt-5">
+  <div class="mx-0 mx-sm-auto" >
+    <div class="card mb-5" *ngFor="let surveyId of surveyQuestions">
+      <div class="card-body" >
+        <div class="text-center">
+          <h3>Question</h3>
+          <p>
+           {{surveyId.quest}}
+          </p>
+        </div>
+
+        <hr />
+
+        <form class="px-4" action="">
+          <p class="text-center"><strong>Your Answer:</strong></p>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example1" required />
+            <label class="form-check-label" for="radio2Example1">
+              {{surveyId.option1}}
+            </label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example2" required/>
+            <label class="form-check-label" for="radio2Example2">
+              {{surveyId.option2}}
+            </label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example3"  *ngIf="!surveyId.option3 ==''"/>
+            <label class="form-check-label" for="radio2Example3">
+              {{surveyId.option3}}
+            </label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="exampleForm" id="radio2Example4"  *ngIf="!surveyId.option4 ==''" />
+            <label class="form-check-label" for="radio2Example4">
+              {{surveyId.option4}}
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-end">
+        <!-- <button type="button" (click)="onEdit(surveyId)" class="btn btn-info m-2" data-toggle="modal" data-target="#exampleModal">Edit</button> -->
+        <i class="fa-solid fa-pen-to-square mx-3" style="color: #0062E6;" (click)="onEdit(surveyId)" data-toggle="modal" data-target="#exampleModal"></i>
+
+        <i class="fa-solid fa-trash " style="color: red;" (click)="deleteQuestion(surveyId)"></i>
+        <!-- <button type="button" (click)="deleteQuestion(surveyId)" class="btn btn-danger" >Delete</button> -->
+      </div>
+    </div>
+
+    <div class="text-center" *ngIf="!surveyEmpty">
+      <button type="button" routerLink="/admin/home"  class="btn btn-primary m-2">Save</button>
+      <button type="button" routerLink="/admin/home"  (click)="publishSurvey(surveyId)" class="btn btn-primary m-5">Publish</button>
+    </div>
+
+  </div>
+ </div>
+
+
+ <!--Question Edit Modal-->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Question </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editQuestion" (ngSubmit)="addNextQues()">
+          <div class="mb-3" *ngIf="editMode">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            <input type="text"   value="{{currentQuestionId}}" class="form-control" [disabled]="true" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Question</label>
+            <input type="text" formControlName="quest" class="form-control" aria-describedby="emailHelp" required>
+            <span *ngIf="!quest.valid && (quest.touched || questionSubmitted) || editQuestion.hasError('whitespace')"
+            class="error-block">
+              Please provide Question
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Option 1</label>
+            <input type="text" formControlName="option1" class="form-control" required>
+            <span *ngIf="!option1.valid && (option1.touched || questionSubmitted) || editQuestion.hasError('whitespace')"
+            class="error-block">
+              Please provide option value
+            </span>
+
+
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Option 2</label>
+            <input type="text" formControlName="option2" class="form-control" required >
+            <span *ngIf="!option2.valid && (option2.touched || questionSubmitted) || editQuestion.hasError('whitespace')"
+            class="error-block">
+              Please provide option value
+            </span>
+
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Option 3</label>
+            <input type="text" formControlName="option3" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Option 4</label>
+            <input type="text" formControlName="option4" class="form-control">
+          </div>
+
+          <p style="color:red;">You can add minimum 2 and maximum 4 options</p>
+          <div class="modal-footer">
+            <button type="button" (click)="onReset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" *ngIf="showAdd" class="btn btn-primary">Add</button>
+            <button type="button"  (click)="updateQuestion()" *ngIf="showUpdate"  class="btn btn-primary">Update</button>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+
+<br><br>
+<div class="text-center m-3" *ngIf="SurveyList" >
+  <h3 class="text-center"><i>No Surveys to display please come after some time.</i></h3>
+ </div>
+<div class="row">
+  <div class="card text-center shadow m-5" style="width: 18rem;" *ngFor="let row of surveyTitles">
+    <div class="card-header"> <b>{{row.title}}</b></div>
+    <div class="card-body">
+      <h5 class="card-title m-5">{{row.description}}</h5>
+    </div>
+      <div class="card-footer">
+        <button [disabled]="row.submitted" class="btn btn-primary m-1" routerLink = '/user/survey/questions/{{row.id}}'>Take Survey</button>
+      </div>
+    </div>
+  </div>

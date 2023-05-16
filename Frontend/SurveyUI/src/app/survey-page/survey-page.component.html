@@ -1,0 +1,48 @@
+<br><br>
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h4>Create Survey</h4>
+    </div>
+      <div class="card-body">
+        <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example1">Survey Name</label>
+            <input type="text"  class="form-control" formControlName="title" required/>
+            <span *ngIf="!title.valid && (title.touched || surveySubmitted) || surveyForm.hasError('whitespace')"
+            class="error-block">
+              Please provide title
+            </span>
+          </div>
+
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example2">Description</label>
+            <input type="text" id="form2Example2" class="form-control" formControlName="description" required/>
+            <span *ngIf="!description.valid && (description.touched || surveySubmitted) || surveyForm.hasError('whitespace')"
+            class="error-block">
+              Please provide description
+            </span>
+          </div>
+
+
+          <!-- Submit button -->
+          <button type="submit"  class="btn btn-primary btn-block mb-4">Submit</button>
+
+
+        </form>
+
+
+      </div>
+
+
+
+
+  </div>
+
+
+</div>
+
+
+

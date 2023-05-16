@@ -1,0 +1,17 @@
+.form{
+  padding-top: 12px;
+}
+
+.btn{
+  transition: transform 0.07s;
+}
+
+/* .btn:hover{
+  transform: scale(20px);
+  transition: ease-in-out;
+} */
+
+.btn:hover {
+  transform: scale(1.07);
+}
+

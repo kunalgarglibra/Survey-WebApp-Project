@@ -1,0 +1,25 @@
+<br><br>
+
+<div class="row">
+
+  <ng-container *ngFor="let row of surveyTitles">
+    <div class="card text-center shadow m-5" style="width: 18rem;" >
+
+      <div class="card-header" style="font-size: 22px;"> <b>{{row.title}}</b></div>
+
+        <div class="card-body ">
+          <h5 class="card-title m-5">{{row.description}}</h5>
+        </div>
+        <div class="card-footer">
+          <button  class="btn btn-primary m-1" routerLink = '/view/survey/questions/{{row.id}}'  *ngIf="row.published == 'No'">View</button>
+          <button  class="btn btn-danger m-1" title="Publish"  (click)="deleteSurvey(row)"  *ngIf="row.published == 'No'"><i class="fa-solid fa-trash mx-3"></i></button>
+          <button  class="btn btn-primary m-1"  (click)="publishSurvey(row)"  *ngIf="row.published == 'No'"><i class="fa-solid fa-upload"></i></button>
+            <p *ngIf="row.published == 'Yes'"><b>Published : {{row.published}}</b></p>
+        </div>
+
+  </div>
+  </ng-container>
+
+
+
+</div>

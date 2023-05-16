@@ -1,0 +1,20 @@
+<br><br>
+<div class="row">
+  <div class="card text-center shadow m-5" style="width: 18rem;" *ngFor="let row of surveyTitles">
+    <div class="card-header" style="font-size: 22px;"> <b>{{row.title}}</b></div>
+
+    <div class="card-body ">
+      <h5 class="card-title m-5">{{row.description}}</h5>
+    </div>
+    <div class="card-footer">
+      <p>
+        Submitted By: <b>{{row.name}}</b>
+      </p>
+      &nbsp;
+      <button  class="btn btn-primary m-1" routerLink = '/admin/results/view/{{row.id}}'>View Results</button>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-2" style="background-color: #0d74ae; font-family: consolas;">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/"><b>SURVEY</b></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+
+        <li  class="nav-item" *ngIf="userLoggedIn()">
+          <a class="nav-link active" routerLink="/user/dashboard"
+            >Your Surveys</a>
+        </li>
+
+        <!-- <li  class="nav-item" *ngIf="userLoggedIn()">
+          <a class="nav-link active"
+            >Take Survey</a>
+        </li> -->
+
+      </ul>
+
+      <ul class="navbar-nav me-auto" *ngIf="loggedin()">
+        <li class="nav-item">
+          <a class="nav-link active"  routerLink="admin/home">Dashboard</a>
+        </li>
+
+        <li  class="nav-item ">
+          <a class="nav-link active " routerLink="admin/user/dashboard">Manage Users</a>
+        </li>
+
+        <li  class="nav-item ">
+        <a class="nav-link active " routerLink="/survey">Create Survey</a>
+        </li>
+
+        <li  class="nav-item">
+          <a class="nav-link active" routerLink="admin/results">View Results</a>
+        </li>
+
+        <li  class="nav-item">
+          <a class="nav-link active" routerLink="admin/analytics">Analytics</a>
+        </li>
+      </ul>
+
+      <div class="navbar-nav me-5 navbar-right">
+        <ul class="navbar-nav" *ngIf="!userLoggedIn() && !loggedin()">
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">  Login  </a>
+
+                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                  <li><a class="dropdown-item" routerLink="admin/login"
+                    routerLinkActive="active"> Admin Login</a></li>
+                  <li><a class="dropdown-item" routerLink="user/login"
+                    routerLinkActive="active"> User Login </a></li>
+                </ul>
+
+          </li>
+        </ul>
+
+
+        <ul  class="navbar-nav">
+          <li  *ngIf="userLoggedIn()"class="nav-item">
+            <a
+              class="nav-link active" routerLinkActive="active" routerLink="/"
+               (click)="onUserLogout()"
+              >Logout</a
+            >
+          </li>
+          <li  *ngIf="loggedin()"class="nav-item">
+            <a
+              class="nav-link active"
+              (click)="onLogout()" routerLinkActive="active" routerLink="/"
+              >Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
