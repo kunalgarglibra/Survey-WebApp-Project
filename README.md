@@ -1,4 +1,4 @@
-# SurveyProject
+# SurveyCraft (Seamless Survey Management Platform):
 ![alt text](https://github.com/kunalgarglibra/Survey-WebApp-Project/blob/master/images/Home1.png)
 ![alt text](https://github.com/kunalgarglibra/Survey-WebApp-Project/blob/master/images/Home2.png)
 
